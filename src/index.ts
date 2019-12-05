@@ -6,13 +6,25 @@
  * @param width
  * @param height
  */
-const canvasToBinaryMatrix = (canvas, width?: number, height?: number) => {
+const transform = (canvas) => {
   if (!canvas) return 0;
 
+  /**
+   * Initial context of input canvas
+   */
   let initialContext = canvas.getContext("2d");
-  let canvasWidth = initialContext.canvas.width;
-  let canvasHeight = initialContext.canvas.height;
-  let initialMatrix = initialContext.getImageData(0, 0, canvasWidth, canvasHeight);
+  /**
+   * Width & height of input canvas
+   * But good idea is external width & height
+   */
+  let { width, height } = initialContext;
+  /**
+   * Initialize binary matrix with 0 values
+   */
+  let initialMatrix = initialContext.getImageData(0, 0, width, height);
+  /**
+   * Return this matrix as binary matrix
+   */
   let binaryMatrix = [];
 
   for (
@@ -20,12 +32,12 @@ const canvasToBinaryMatrix = (canvas, width?: number, height?: number) => {
     i < initialContext.canvas.width * initialContext.canvas.width * 4;
     i += 4
   ) {
-    let alpha = initialMatrix.data[i + 0];
-    let r = initialMatrix.data[i + 1];
-    let g = initialMatrix.data[i + 2];
-    let b = initialMatrix.data[i + 3];
-
-    if (alpha > 0 || r > 0 || g > 0 || b > 0) {
+    if (
+      initialMatrix.data[i + 0] > 0 || // Alpha
+      initialMatrix.data[i + 1] > 0 || // Red
+      initialMatrix.data[i + 2] > 0 || // Green
+      initialMatrix.data[i + 3] > 0 // Blue
+    ) {
       binaryMatrix.push(1);
     } else {
       binaryMatrix.push(0);
@@ -33,4 +45,4 @@ const canvasToBinaryMatrix = (canvas, width?: number, height?: number) => {
   }
 }
 
-module.exports = canvasToBinaryMatrix;
+module.exports = transform;
