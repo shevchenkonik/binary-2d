@@ -1,0 +1,40 @@
+{
+  "name": "binary-2d",
+  "version": "0.0.1",
+  "description": "Transform Canvas to Binary Matrix",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --declaration",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage && codecov",
+    "size": "size-limit"
+  },
+  "keywords": [
+    "canvas",
+    "binary",
+    "typescript"
+  ],
+  "author": "Nik Shevchenko <shevchenko.nik@icloud.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shevchenkonik/binary-2d.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^2.2.0",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
+    "codecov": "^3.6.1",
+    "jest": "^24.9.0",
+    "jest-coverage-badges": "^1.1.2",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
+  },
+  "size-limit": [
+    {
+      "path": "lib/index.js"
+    }
+  ]
+}
