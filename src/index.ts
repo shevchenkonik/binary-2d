@@ -6,8 +6,10 @@
  * @param width
  * @param height
  */
-const transform = (canvas) => {
-  if (!canvas) return 0;
+const transform = (canvas: HTMLCanvasElement) => {
+  if (!canvas || canvas.localName !== "canvas") {
+    throw new Error("The element isn't canvas");
+  }
 
   /**
    * Initial context of input canvas
@@ -17,7 +19,7 @@ const transform = (canvas) => {
    * Width & height of input canvas
    * But good idea is external width & height
    */
-  let { width, height } = initialContext;
+  let { width, height } = canvas;
   /**
    * Initialize binary matrix with 0 values
    */
@@ -36,7 +38,7 @@ const transform = (canvas) => {
       initialMatrix.data[i + 0] > 0 || // Alpha
       initialMatrix.data[i + 1] > 0 || // Red
       initialMatrix.data[i + 2] > 0 || // Green
-      initialMatrix.data[i + 3] > 0 // Blue
+      initialMatrix.data[i + 3] > 0    // Blue
     ) {
       binaryMatrix.push(1);
     } else {
