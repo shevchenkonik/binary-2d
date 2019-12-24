@@ -1,50 +1,47 @@
-/**
- * Transform canvas to binary matrix
- *
- * The correct way to use is get canvas with one layer
- * @param canvas
- * @param width
- * @param height
- */
-const transform = (canvas: HTMLCanvasElement) => {
-  if (!canvas || canvas.localName !== "canvas") {
-    throw new Error("The element isn't canvas");
+export default class Binary2D {
+  public canvas: HTMLCanvasElement;
+  public binaryMatrix: Array<number> = [];
+
+  constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas;
   }
 
-  /**
-   * Initial context of input canvas
-   */
-  let initialContext = canvas.getContext("2d");
-  /**
-   * Width & height of input canvas
-   * But good idea is external width & height
-   */
-  let { width, height } = canvas;
-  /**
-   * Initialize binary matrix with 0 values
-   */
-  let initialMatrix = initialContext.getImageData(0, 0, width, height);
-  /**
-   * Return this matrix as binary matrix
-   */
-  let binaryMatrix = [];
-
-  for (
-    let i = 0;
-    i < initialContext.canvas.width * initialContext.canvas.width * 4;
-    i += 4
-  ) {
-    if (
-      initialMatrix.data[i + 0] > 0 || // Alpha
-      initialMatrix.data[i + 1] > 0 || // Red
-      initialMatrix.data[i + 2] > 0 || // Green
-      initialMatrix.data[i + 3] > 0    // Blue
-    ) {
-      binaryMatrix.push(1);
-    } else {
-      binaryMatrix.push(0);
+  private checkCanvas() {
+    if (this.canvas.localName !== 'canvas') {
+      return undefined;
+      // throw new Error('The element isn\'t canvas');
     }
   }
-}
 
-module.exports = transform;
+  private createBinaryMatrix(): void {
+    for (
+      let i = 0;
+      i < this.canvas.width * this.canvas.width * 4;
+      i += 4
+    ) {
+      if (
+        // @ts-ignore
+        this.canvas.data[i + 0] > 0 || // Alpha
+        // @ts-ignore
+        this.canvas.data[i + 1] > 0 || // Red
+        // @ts-ignore
+        this.canvas.data[i + 2] > 0 || // Green
+        // @ts-ignore
+        this.canvas.data[i + 3] > 0    // Blue
+      ) {
+        this.binaryMatrix.push(1);
+      } else {
+        this.binaryMatrix.push(0);
+      }
+    }
+  }
+
+  public getBinaryData() {
+    if (!this.checkCanvas()) {
+      return undefined
+    };
+
+    this.createBinaryMatrix();
+    return this.binaryMatrix;
+  }
+}

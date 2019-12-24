@@ -13,8 +13,8 @@ npm i binary-2d
 ## API
 
 ```javascript
-let binaryD2 = require("binary-2d");
-let canv = document.getElementById("current");
+import binary2D from 'binary-2d';
 
-binaryD2.transform(canv);
+let canv = document.getElementById("your-canvas-element");
+let binary = new Binary2D(canv).getBinaryData();
 ```
