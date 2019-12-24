@@ -1,6 +1,6 @@
 {
   "name": "binary-2d",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Transform Canvas to Binary Matrix",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
