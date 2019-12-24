@@ -8,9 +8,10 @@ export default class Binary2D {
 
   private checkCanvas() {
     if (this.canvas.localName !== 'canvas') {
-      return undefined;
-      // throw new Error('The element isn\'t canvas');
+      return false;
     }
+
+    return true;
   }
 
   private createBinaryMatrix(): void {
